@@ -2,6 +2,8 @@ import express from 'express';
 import type { Request, Response, NextFunction } from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fs from 'fs';
+import { execSync } from 'child_process';
 import { createServer as createViteServer } from 'vite';
 import { db } from './server/db.ts';
 
@@ -362,6 +364,25 @@ app.delete('/api/tasks/:id', (req: Request, res: Response) => {
     res.json({ success: true, message: 'Task deleted successfully', deletedTask: existing });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Failed to delete task';
+    res.status(500).json({ error: message });
+  }
+});
+
+// 9. GET /api/export-repo - Download clean ZIP bundle of repository for GitHub submission
+app.get('/api/export-repo', (req: Request, res: Response) => {
+  try {
+    const archivePath = path.join('/tmp', `taskflow-repository-${Date.now()}.zip`);
+    execSync(`git archive --format=zip --output="${archivePath}" HEAD`, { cwd: __dirname });
+
+    res.download(archivePath, 'task-list-application-repository.zip', (err) => {
+      try {
+        if (fs.existsSync(archivePath)) fs.unlinkSync(archivePath);
+      } catch {
+        // ignore
+      }
+    });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Failed to generate repository zip';
     res.status(500).json({ error: message });
   }
 });

@@ -63,8 +63,24 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [activeView, setActiveView] = useState<ViewTab>('dashboard');
-  const [displayMode, setDisplayMode] = useState<DisplayMode>('list');
+  const [activeView, setActiveView] = useState<ViewTab>(() => {
+    if (typeof window !== 'undefined') {
+      const paramView = new URLSearchParams(window.location.search).get('view');
+      if (paramView && ['dashboard', 'all', 'my_day', 'upcoming', 'completed', 'overdue', 'settings'].includes(paramView)) {
+        return paramView as ViewTab;
+      }
+    }
+    return 'dashboard';
+  });
+
+  const [displayMode, setDisplayMode] = useState<DisplayMode>(() => {
+    if (typeof window !== 'undefined') {
+      const paramMode = new URLSearchParams(window.location.search).get('mode');
+      if (paramMode === 'kanban' || paramMode === 'list') return paramMode;
+    }
+    return 'list';
+  });
+
   const [filters, setFiltersState] = useState<TaskFilters>(defaultFilters);
 
   // Theme management: sync with document.documentElement.classList
@@ -80,7 +96,12 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
   // Modal states
-  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return new URLSearchParams(window.location.search).get('modal') === 'create';
+    }
+    return false;
+  });
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [defaultModalStatus, setDefaultModalStatus] = useState<TaskStatus>('Pending');
 
