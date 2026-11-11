@@ -1,10 +1,16 @@
 # TaskFlow — Full-Stack Task List Application
 
+🔗 **Live Published Application:** [https://remix-taskflow-full-stack-task-management-438938880626.asia-southeast1.run.app](https://remix-taskflow-full-stack-task-management-438938880626.asia-southeast1.run.app)
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20App-success?style=for-the-badge&logo=googlecloud)](https://remix-taskflow-full-stack-task-management-438938880626.asia-southeast1.run.app)
 [![Tech Stack](https://img.shields.io/badge/Stack-React%2019%20%7C%20Node.js%20%7C%20Express%20%7C%20SQLite-blue.svg)](https://github.com)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x%20%7C%20Strict-3178C6.svg)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-4.x-38B2AC.svg)](https://tailwindcss.com/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
+> 🚀 **Live Demo Available**: You can interact with the live deployed application directly at:  
+> 👉 **[https://remix-taskflow-full-stack-task-management-438938880626.asia-southeast1.run.app](https://remix-taskflow-full-stack-task-management-438938880626.asia-southeast1.run.app)**
+>
 > A modern, responsive, full-stack task management web application built for the **Full Stack Development Challenge (Task 2)**. Features a robust RESTful Express API, ACID-compliant persistent SQLite database, and an intuitive React 19 frontend with real-time statistics, multi-parameter filtering, and interactive List & Kanban views.
 
 ---
